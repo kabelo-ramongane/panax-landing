@@ -257,12 +257,17 @@ footer strong { display: block; color: var(--cream); font-family: var(--display)
         form.hidden = true;
         thanks.hidden = false;
       })
-      .catch(function () {
-        btn.disabled = false;
-        btn.textContent = "Keep me posted";
-        status.className = "status error";
-        status.textContent = "We couldn't save your email just now. Check your connection and try again.";
-      });
+      .catch(function (err) {
+  btn.disabled = false;
+  btn.textContent = "Keep me posted";
+  status.className = "status error";
+
+  status.textContent = err.message
+    ? "Form error: " + err.message
+    : "Request failed. Check your browser console.";
+
+  console.error("Panax signup error:", err);
+});
   });
 })();
 </script>
