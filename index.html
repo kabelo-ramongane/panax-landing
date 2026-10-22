@@ -1,3 +1,456 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Panax Launch List</title>
+  <meta name="description" content="Panax is launching soon. Leave your email to hear on launch day.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+  <style>
+    :root {
+      --forest: #1F3D2B;
+      --forest-deep: #183223;
+      --olive: #55622C;
+      --cream: #F5F1E3;
+      --cream-dim: rgba(245, 241, 227, 0.72);
+      --orange: #F08A3C;
+      --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+      --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      background: var(--forest);
+      color: var(--cream);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-block:
+        max(28px, env(safe-area-inset-top, 0px))
+        max(28px, env(safe-area-inset-bottom, 0px));
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .sun {
+      position: absolute;
+      z-index: 0;
+      top: -14vmin;
+      right: -12vmin;
+      width: 62vmin;
+      height: 62vmin;
+      max-width: 100%;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+    }
+
+    .wordmark span,
+    h1 .dot {
+      color: var(--orange);
+    }
+
+    main {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(56px, 11vw, 132px);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 34ch;
+      font-size: clamp(18px, 2vw, 21px);
+      color: var(--cream-dim);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 520px;
+    }
+
+    .field {
+      display: flex;
+      gap: 8px;
+      padding: 6px;
+      background: var(--forest-deep);
+      border: 1.5px solid rgba(245, 241, 227, 0.22);
+      border-radius: 999px;
+      transition: border-color 0.2s;
+    }
+
+    .field:focus-within {
+      border-color: var(--orange);
+    }
+
+    .field input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 18px;
+      font: inherit;
+      color: var(--cream);
+      background: transparent;
+      border: 0;
+      outline: none;
+    }
+
+    .field input::placeholder {
+      color: rgba(245, 241, 227, 0.45);
+    }
+
+    .field button {
+      flex: none;
+      padding: 12px 24px;
+      font: 600 16px/1 var(--body);
+      color: var(--forest);
+      background: var(--orange);
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .field button:hover {
+      background: #F59B55;
+    }
+
+    .field button:active {
+      transform: scale(0.97);
+    }
+
+    .field button:focus-visible {
+      outline: 2px solid var(--cream);
+      outline-offset: 2px;
+    }
+
+    .field button:disabled {
+      opacity: 0.6;
+      cursor: progress;
+    }
+
+    .note {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 13px;
+      color: rgba(245, 241, 227, 0.55);
+    }
+
+    .status {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 15px;
+      min-height: 1.5em;
+      overflow-wrap: anywhere;
+    }
+
+    .status.error {
+      color: #FFB27A;
+    }
+
+    .status.success {
+      color: var(--cream);
+    }
+
+    .thanks {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 520px;
+      padding: 16px 22px;
+      border-radius: 18px;
+      background: var(--olive);
+      font-size: 17px;
+    }
+
+    .thanks svg {
+      flex: none;
+    }
+
+    .hp {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(245, 241, 227, 0.16);
+      font-size: 14px;
+      color: var(--cream-dim);
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 520px) {
+      .field {
+        flex-direction: column;
+        border-radius: 22px;
+      }
+
+      .field button {
+        padding: 15px;
+      }
+
+      .sun {
+        width: 78vmin;
+        height: 78vmin;
+        top: -22vmin;
+        right: -26vmin;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="sun" aria-hidden="true"></div>
+
+    <div class="inner">
+      <div class="wordmark">Panax<span>.</span></div>
+
+      <main>
+        <p class="eyebrow">Launching soon</p>
+
+        <h1>Win from day one<span class="dot">.</span></h1>
+
+        <p class="lede">
+          Leave your email and we'll tell you the moment Panax opens its doors.
+        </p>
+
+        <form
+          id="signup"
+          action="https://formsubmit.co/486c1289d6f765f05fd59abc97acc351"
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="New Panax launch signup">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+
+          <div class="hp" aria-hidden="true">
+            <label for="hp-field">Leave this empty</label>
+            <input
+              type="text"
+              id="hp-field"
+              name="_honey"
+              tabindex="-1"
+              autocomplete="off"
+            >
+          </div>
+
+          <label for="email" class="hp">Email address</label>
+
+          <div class="field">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.co.za"
+              autocomplete="email"
+              required
+            >
+
+            <button type="submit" id="submit-btn">
+              Keep me posted
+            </button>
+          </div>
+
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+          <p class="note">One email on launch day. No spam.</p>
+        </form>
+
+        <div class="thanks" id="thanks" hidden>
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+            <circle cx="14" cy="14" r="14" fill="#F08A3C"/>
+            <path
+              d="M8 14.5l4 4 8-9"
+              fill="none"
+              stroke="#1F3D2B"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>You're on the list. See you on launch day.</span>
+        </div>
+      </main>
+
+      <footer>
+        <div>
+          <div class="wordmark">Panax<span>.</span></div>
+          from Okuhle Statscom Consulting
+        </div>
+        <div>www.panax.co.za</div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var TOKEN = "486c1289d6f765f05fd59abc97acc351";
+      var ENDPOINT = "https://formsubmit.co/ajax/" + TOKEN;
+
+      var form = document.getElementById("signup");
+      var emailInput = document.getElementById("email");
+      var honeypot = document.getElementById("hp-field");
+      var btn = document.getElementById("submit-btn");
+      var status = document.getElementById("status");
+      var thanks = document.getElementById("thanks");
+
+      form.addEventListener("submit", async function (event) {
+        // Stop the browser from navigating to FormSubmit.
+        event.preventDefault();
+
+        if (honeypot.value) return;
+
+        if (!emailInput.checkValidity()) {
+          emailInput.reportValidity();
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+        status.className = "status";
+        status.textContent = "Submitting your email...";
+
+        try {
+          var response = await fetch(ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              email: emailInput.value.trim(),
+              _subject: "New Panax launch signup",
+              _template: "table",
+              _captcha: "false"
+            })
+          });
+
+          var result;
+
+          try {
+            result = await response.json();
+          } catch (parseError) {
+            throw new Error(
+              "The service returned an unexpected response. Please try again."
+            );
+          }
+
+          console.log("FormSubmit response:", result);
+
+          var success = result.success === true ||
+            String(result.success).toLowerCase() === "true";
+
+          if (!response.ok || !success) {
+            throw new Error(
+              result.message ||
+              result.error ||
+              "Your signup could not be submitted. Please try again."
+            );
+          }
+
+          // Keep the visitor on this page and show the success message.
+          form.hidden = true;
+          thanks.hidden = false;
+
+        } catch (error) {
+          console.error("Panax signup error:", error);
+
+          btn.disabled = false;
+          btn.textContent = "Keep me posted";
+          status.className = "status error";
+
+          if (error instanceof TypeError) {
+            status.textContent =
+              "We couldn't connect to the signup service. Please check your connection and try again.";
+          } else {
+            status.textContent = error.message;
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
 <!doctype html>
 <html lang="en">
 <head>
