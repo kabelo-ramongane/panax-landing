@@ -218,58 +218,6 @@ footer strong { display: block; color: var(--cream); font-family: var(--display)
   </div>
 </div>
 
-<script>
-(function () {
-  var ENDPOINT = "https://formsubmit.co/ajax/486c1289d6f765f05fd59abc97acc351";
-  var form = document.getElementById("signup");
-  var btn = document.getElementById("submit-btn");
-  var status = document.getElementById("status");
-  var thanks = document.getElementById("thanks");
 
-  // Without JavaScript the form still posts normally to FormSubmit.
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (form._honey.value) return;
-    var email = form.email.value.trim();
-    if (!form.email.checkValidity()) {
-      status.className = "status error";
-      status.textContent = "That email address doesn't look right. Check it and try again.";
-      return;
-    }
-    btn.disabled = true;
-    btn.textContent = "Sending…";
-    status.className = "status";
-    status.textContent = "";
-
-    fetch(ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        _subject: "New Panax launch signup",
-        _template: "table",
-        _captcha: "false"
-      })
-    })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (res) {
-        if (!res.ok || String(res.d.success) !== "true") throw new Error(res.d.message || "failed");
-        form.hidden = true;
-        thanks.hidden = false;
-      })
-      .catch(function (err) {
-  btn.disabled = false;
-  btn.textContent = "Keep me posted";
-  status.className = "status error";
-
-  status.textContent = err.message
-    ? "Form error: " + err.message
-    : "Request failed. Check your browser console.";
-
-  console.error("Panax signup error:", err);
-});
-  });
-})();
-</script>
 </body>
 </html>
